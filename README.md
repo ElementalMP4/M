@@ -26,7 +26,7 @@ Incorrect commands will halt execution and throw a Syntax Error
 The only current interpreter is written in python. As such, you will need python3 installed.
 
 ```
-python3 [input file]
+python3 interpreter.py [input file]
 ```
 
 It is recommended to save M files as `[name].m`
