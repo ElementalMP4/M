@@ -1,5 +1,7 @@
+from dataclasses import replace
 import sys
 from calculator import calculate
+from time import sleep
 
 SPACE = ' '
 args = sys.argv
@@ -8,10 +10,11 @@ def parseDictionary(lines):
     sourceMap = {}
 
     for line in lines:
-        tokens = line.split(' ')
-        label = tokens[0]
-        command = SPACE.join(tokens[1:])
-        sourceMap[label] = command
+        if line != "" and not line.startswith("#"):
+            tokens = line.split(' ')
+            label = tokens[0]
+            command = SPACE.join(tokens[1:])
+            sourceMap[label] = command
     return sourceMap
 
 def getNextKey(currentKey, sourceMap):
@@ -30,6 +33,7 @@ def execute(sourceMap):
     NEXT_KEY = ''
     
     REGISTER_MAP = {}
+    FILE_MAP = {}
 
     while (CONTINUE_EXECUTION):
         if (CURRENT_KEY == ''):
@@ -73,6 +77,19 @@ def execute(sourceMap):
             expression = SPACE.join(args[1:])
             result = str(calculate(expression))
             REGISTER_MAP[register] = result
+        elif keyword == "ASSIGN":
+            register = args[0]
+            file = args[1]
+            textFile = open(file)
+            FILE_MAP[register] = textFile
+        elif keyword == "READ":
+            file = args[0]
+            register = args[1]
+            textFile = FILE_MAP[file]
+            value = textFile.readline().replace("\n", "")
+            if not value:
+                value = "EOF"
+            REGISTER_MAP[register] = value
         elif keyword == "COMPARE":
             label = args[0]
             param1 = args[1]
