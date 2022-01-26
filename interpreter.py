@@ -1,7 +1,8 @@
 from dataclasses import replace
 import sys
-from calculator import calculate
 from time import sleep
+
+from calculator import calculate
 
 SPACE = ' '
 args = sys.argv
