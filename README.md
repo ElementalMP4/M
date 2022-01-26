@@ -8,8 +8,10 @@
 - INPUT [register] [message*]                       - Asks for user input with [message] and stores the value in [register]
 - COMPARE [label*] [register1] [mode*] [register2]  - Compares [register1] to [register2] depending on the mode (EQ, GT, LT, NE)
 - CALCULATE [register] [expression*]                - Calculates [expression] and stores the result in [register]
-- ASSIGN [register] [file path*]                    - Open a file and store it in [register]
+- ASSIGN [register] [file path*] [mode*]            - Open a file and store it in [register] with the mode [mode] (READ/WRITE)
 - READ [register1] [register2]                      - Read a line from the file in [register1] and store it in [register2]
+- SIZE [register1] [register2]                      - Get the size of the file in [register1] and store it in [register2]
+- WRITE [register1] [register2]                     - Write the data at [register2] into the file [register1]
 - END                                               - Halt execution
 - $[register]                                       - Recalls the value in [register]
 ```
@@ -71,7 +73,7 @@ END
 
 ```
 10 PRINT Opening file
-20 ASSIGN file .\data.txt
+20 ASSIGN file .\data.txt READ
 30 PRINT File opened
 40 READ file line
 50 COMPARE 70 $line NE EOF
@@ -93,6 +95,26 @@ hello world!
 Another line!
 And one more!
 End of file
+
+```
+10 ASSIGN fileIn .\input.txt READ
+15 ASSIGN fileOut .\output.txt WRITE
+20 READ fileIn line 
+30 COMPARE 40 $line NE EOF
+END
+40 WRITE fileOut $line
+50 GOTO 20
+```
+
+`input.txt`
+hello world!
+Another line!
+And one more!
+
+`output.txt`
+hello world!
+Another line!
+And one more!
 
 ## Note
 - This is not a serious scripting langauge, just something for a bit of code practice.

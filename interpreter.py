@@ -1,7 +1,5 @@
-from dataclasses import replace
 import sys
 from calculator import calculate
-from time import sleep
 
 SPACE = ' '
 args = sys.argv
@@ -80,7 +78,8 @@ def execute(sourceMap):
         elif keyword == "ASSIGN":
             register = args[0]
             file = args[1]
-            textFile = open(file)
+            mode = args[2]
+            textFile = open(file, ("r" if mode == "READ" else "w"))
             FILE_MAP[register] = textFile
         elif keyword == "READ":
             file = args[0]
@@ -90,6 +89,16 @@ def execute(sourceMap):
             if not value:
                 value = "EOF"
             REGISTER_MAP[register] = value
+        elif keyword == "SIZE":
+            file = args[0]
+            register = args[1]
+            textFile = FILE_MAP[file]
+            REGISTER_MAP[register] = str(len(textFile.read().split("\n")))
+        elif keyword == "WRITE":
+            file = args[0]
+            line = SPACE.join(args[1:])
+            textFile = FILE_MAP[file]
+            textFile.write(line + "\n")
         elif keyword == "COMPARE":
             label = args[0]
             param1 = args[1]
