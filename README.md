@@ -84,16 +84,23 @@ END
 ```
 `data.txt`
 hello world!
+
 Another line!
+
 And one more!
 
 **Output**
 
 Opening file
+
 File opened
+
 hello world!
+
 Another line!
+
 And one more!
+
 End of file
 
 ```
@@ -108,12 +115,16 @@ END
 
 `input.txt`
 hello world!
+
 Another line!
+
 And one more!
 
 `output.txt`
 hello world!
+
 Another line!
+
 And one more!
 
 ## Note
