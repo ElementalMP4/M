@@ -13,6 +13,7 @@
 - END                                               - Halt execution
 - $[register]                                       - Recalls the value in [register]
 ```
+Values marked with a * can be either a value or a register
 
 ## Syntax:
 All lines must follow the same basic syntax:
